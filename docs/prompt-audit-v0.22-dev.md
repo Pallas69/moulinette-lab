@@ -1,0 +1,7 @@
+# Revue indépendante de Moulinette Lab v0.22-dev
+
+Vérifier d'abord l'empreinte SHA-256 de l'archive transmise et indiquer les fichiers et lignes exacts examinés. Réservé au code de confiance ; ne pas exécuter de charge ou OOM, ni modifier le projet, installer quoi que ce soit ou supprimer des données utilisateur sans accord.
+
+Examiner les changements depuis la v0.21, notamment : gestion et restauration des signaux CLI/worker cgroup, interruptions pendant les diverses phases, conservation des diagnostics et nettoyage réellement possible ; cohérence des rapports ; refus des surrogates Git et échappement dans les diagnostics et l'historique ; contrôle statique des auxiliaires SQLite, tests et courses résiduelles ; descripteurs et nettoyage des sorties de compilation lors de succès, échec, remplacement et exceptions ; absence de réactivation de la sonde OOM ; montage sélectif du nouveau module `safe_text` dans le worker GitHub.
+
+Vérifier que les neuf exercices existants et le parcours GitHub de confiance ne régressent pas. Analyser les fenêtres d'interruption et de TOCTOU toujours ouvertes ainsi que les conséquences sur la portée des affirmations de sécurité. Distinguer faits reproduits, raisonnement et hypothèses, et ne pas prétendre que ces modifications autorisent le code hostile ou démontrent les limites en charge. Conclure sur les points restant à traiter avant toute utilisation avec du code non fiable.

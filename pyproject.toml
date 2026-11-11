@@ -1,0 +1,18 @@
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "moulinette-lab"
+version = "0.32.8.dev0"
+description = "Prototype de correction pédagogique pour autodidactes"
+requires-python = ">=3.10"
+
+[project.scripts]
+moulinette = "moulinette.cli:main"
+
+[tool.setuptools]
+packages = ["moulinette"]
+
+[tool.setuptools.package-data]
+moulinette = ["assets/*.woff2", "assets/*.ttf", "assets/*.pdf", "assets/*.txt", "assets/*.css", "assets/*.js"]

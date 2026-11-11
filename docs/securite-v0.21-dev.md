@@ -1,0 +1,29 @@
+> **DOCUMENT HISTORIQUE v0.21 — voir `securite-v0.22-dev.md` pour les changements ultérieurs.**
+
+# Étape 3 — v0.21-dev, revue et sécurité non terminées
+
+Réservée au **code et aux dépôts de confiance**. Cette branche corrige certains points vérifiés après lecture de l'audit Antigravity de la v0.20. Elle ne certifie pas une sandbox et n'a pas encore été revue indépendamment. La v0.19 a été essayée sur Ubuntu utilisateur : 202 tests standard et un ex00 sous scope réel ; cela ne valide pas les changements ultérieurs.
+
+## Précaution immédiate : ancien témoin OOM
+
+**Ne pas exécuter le témoin de charge de la v0.20, y compris avec `ML_TEST_CGROUP_LOAD=1`.** Il pouvait provoquer intentionnellement un OOM dans un scope partageant superviseur et allocateur. Les marges mémoire et réglages du seul scope ne garantissent pas l'absence d'effet sur le reste de la session : limites ou pression des ancêtres, changements concurrents, OOM global et `systemd-oomd` restent des risques. Forcer `oom_score_adj` pour désigner un enfant n'est pas une garantie générale.
+
+Dans la v0.21, le témoin mémoire et le témoin CPU associés sont retirés : `witness_main` répond indisponible sans lancer de charge ; le test réel est **toujours sauté**, même si l'ancien opt-in est défini. La validation de `memory.max` en charge et celle du bridage CPU en charge ne sont donc **pas réalisées**. Un futur essai OOM devra être conçu et audité séparément, puis exécuté uniquement dans une VM jetable appropriée, avec consentement. Une simple allocation modeste démontrerait au mieux de la comptabilisation, pas l'application effective de la limite.
+
+## Changements et limites
+
+- **GitHub** : la CLI conserve le tmpfs Bubblewrap de 128 Mio et le réseau partagé. Le worker reçoit seulement ses modules Python nécessaires au lieu du répertoire complet de l'application ; `/usr`, les certificats et la configuration DNS restent montés. Une limite CPU par processus (soft 30 s, hard 46 s) s'ajoute ; Git peut régler sa propre limite soft à 45 s sous le hard hérité. Ce n'est pas un budget CPU total pour tous les descendants. Ni quota système global, ni filtre réseau, ni isolation hostile ne sont garantis.
+- **Helper Git interne** : son appel direct refuse désormais d'agir par défaut ; un paramètre interne explicite permet au worker de l'utiliser. Ce paramètre n'authentifie pas l'environnement : il peut être activé par un appelant et ne remplace pas le tmpfs. Seule la voie `github_bounded.bounded_public_repository` installe l'enveloppe prévue. Aucun repli sur l'hôte si celle-ci échoue. Le message d'échec CLI ne prétend plus systématiquement que Git s'exécutait sur l'hôte.
+- **Historique et tableau de bord** : refus statique d'un dossier de données lien symbolique, d'une base qui n'est pas un fichier régulier à lien unique, et d'une destination dashboard qui est un lien symbolique. Les nouveaux fichiers sont créés avec les modes habituels 0700/0600 ; cela ne corrige pas automatiquement les permissions d'éléments préexistants. Les vérifications sont séparées de `sqlite3.connect(path)` et du remplacement du HTML : elles ne suppriment pas les courses face à un processus pouvant modifier les chemins, notamment de même UID. L'ancienne utilisation de `os.replace` remplaçait le lien lui-même, elle ne suivait pas sa cible ; le nouveau refus évite cette substitution inattendue, pas une écriture dans la cible qui aurait été constatée.
+- **Capture et interruption** : si l'attente bornée échoue pendant une exception déjà active, le diagnostic de nettoyage est conservé sur l'exception au lieu de masquer notamment `KeyboardInterrupt`. L'arrêt du groupe est tenté avant l'attente ; le nettoyage n'est pas pour autant garanti. Le lanceur cgroup continue à demander l'arrêt de son scope dans `finally`. S'il n'a pas pu vérifier son chemin, il ne peut pas confirmer qu'il est vide ; le résultat est incomplet.
+- **Rapport favorable** : chaque contrôle obligatoire et l'information `Fonctions externes` doivent apparaître exactement une fois avec le bon statut ; les avertissements supplémentaires du même nom restent permis. Cela ne transforme pas les messages du worker en preuve contre un attaquant de même UID.
+
+## Divergences relevées dans l'audit de la v0.20
+
+L'audit est utile comme liste de questions mais plusieurs détails ne décrivent pas l'archive effectivement examinée (SHA-256 `90cdcd9f09d6dd27c4811bd10fe4d145a2c44d0233de63f6b7b1e332d2cd67d3`). Par exemple, les noms `_validate_full_tree`, `_copy_exercise`, `_pids_witness`, `run_cli`, `_validate_payload`, `SandboxRunner`, l'option `--github-public` et `--info-fd` ne correspondent pas à ce code. Le témoin CPU durait 3 s et non 0,35 s. Le parseur Git vérifiait déjà l'ensemble exact des clés, l'URL, la ref et le SHA ; l'arrêt du scope était déjà demandé dans le `finally` du test de charge, bien que son vidage ne soit pas toujours vérifiable. L'historique refusait déjà un lien symbolique statique pour la base. Ces différences ne prouvent pas que l'archive est sûre ; elles justifient une revue fondée sur le code exact et son empreinte.
+
+## Validation et points ouverts
+
+Les essais de cette branche sont décrits dans `validation-v0.21-dev.md`. Aucun témoin OOM réel n'a été lancé dans l'environnement de développement. Le système de développement n'a pas de bus systemd utilisateur : le nouveau parcours GitHub avec scope cgroup réel reste à vérifier sur Ubuntu, et les tests de protocole cgroup simulés ne prouvent pas son fonctionnement réel.
+
+Restent ouverts : validation indépendante de la v0.21, stratégie de charge en VM, stockage hors tmpfs, réseau partagé, accès du même UID et courses sur les chemins, descendants détachés, interruption brutale ou processus bloqué en noyau, absence de seccomp et noyau partagé. Ne pas présenter l'étape 3 comme achevée ni accepter des rendus hostiles sur cette base.

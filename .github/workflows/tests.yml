@@ -1,0 +1,28 @@
+name: Tests sans charge
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  tests-sans-charge:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Récupération du code
+        uses: actions/checkout@v4
+
+      - name: Installation des outils système (cc, binutils, make, bubblewrap)
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y gcc binutils make bubblewrap python3-venv
+
+      - name: Installation de Norminette 3.3.59 dans un venv dédié
+        run: |
+          python3 -m venv "$HOME/.venvs/norminette"
+          "$HOME/.venvs/norminette/bin/pip" install --upgrade pip "norminette==3.3.59"
+          mkdir -p "$HOME/.local/bin"
+          ln -sf "$HOME/.venvs/norminette/bin/norminette" "$HOME/.local/bin/norminette"
+          echo "$HOME/.local/bin" >> "$GITHUB_PATH"
+
+      - name: Exécution de la sélection sans charge (aucun témoin OOM/CPU)
+        run: python3 tools/test_sans_charge.py

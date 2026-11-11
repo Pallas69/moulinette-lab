@@ -1,0 +1,133 @@
+
+---- PAGE 8 ----
+Chapter IV
+Exercise 00 : btree_create_node
+Exercise 00
+btree_create_node
+Turn-in directory: ex00/
+Files to turn in:btree_create_node.c, ft_btree.h
+Allowed functions: malloc
+• Create the functionbtree_create_node which allocates a new element. It should
+initialise its item to the value of the argument, and all other elements to 0.
+• The address of the created node is returned.
+• Here’s how it should be prototyped :
+t_btree *btree_create_node( void *item);
+7
+
+---- PAGE 9 ----
+Chapter V
+Exercise 01 : btree_apply_prefix
+Exercise 01
+btree_apply_prefix
+Turn-in directory: ex01/
+Files to turn in:btree_apply_prefix.c, ft_btree.h
+Allowed functions: None
+• Create a function btree_apply_prefix which applies the function given as an
+argument to theitem of each node, usingprefix traversal to traverse the tree.
+• Here’s how it should be prototyped :
+void btree_apply_prefix(t_btree *root, void (*applyf)(void *));
+8
+
+---- PAGE 10 ----
+Chapter VI
+Exercise 02 : btree_apply_infix
+Exercise 02
+btree_apply_infix
+Turn-in directory: ex02/
+Files to turn in:btree_apply_infix.c, ft_btree.h
+Allowed functions: None
+• Create a function btree_apply_infix which applies the function given as an ar-
+gument to theitem of each node, usinginfix traversal to traverse the tree.
+• Here’s how it should be prototyped :
+void btree_apply_infix(t_btree *root, void (*applyf)(void *));
+9
+
+---- PAGE 11 ----
+Chapter VII
+Exercise 03 : btree_apply_suffix
+Exercise 03
+btree_apply_suffix
+Turn-in directory: ex03/
+Files to turn in:btree_apply_suffix.c, ft_btree.h
+Allowed functions: None
+• Create a function btree_apply_suffix which applies the function given as an
+argument to theitem of each node, usingsuffix traversal to traverse the tree.
+• Here’s how it should be prototyped :
+void btree_apply_suffix(t_btree *root, void (*applyf)(void *));
+10
+
+---- PAGE 12 ----
+Chapter VIII
+Exercise 04 : btree_insert_data
+Exercise 04
+btree_insert_data
+Turn-in directory: ex04/
+Files to turn in:btree_insert_data.c, ft_btree.h
+Allowed functions: btree_create_node
+• Create a functionbtree_insert_data which inserts the elementitem into a tree.
+The tree passed as argument will be sorted: for eachnode, all lower elements are
+located on the left side, and all higher or equal elements are located on the right.
+We’ll also pass a comparison function similar tostrcmp as an argument.
+• The root parameter points to the root node of the tree. When called for the first
+time, it should point toNULL.
+• Here’s how it should be prototyped :
+void btree_insert_data(t_btree **root, void *item, int (*cmpf)(void *, void *));
+11
+
+---- PAGE 13 ----
+Chapter IX
+Exercise 05 : btree_search_item
+Exercise 05
+btree_search_item
+Turn-in directory: ex05/
+Files to turn in:btree_search_item.c, ft_btree.h
+Allowed functions: None
+• Create a function btree_search_item which returns the first element related to
+the reference data given as an argument. The tree should be traversed usinginfix
+traversal. If the element isn’t found, the function should returnNULL.
+• Here’s how it should be prototyped :
+void *btree_search_item(t_btree *root, void *data_ref, int (*cmpf)(void *, void *));
+12
+
+---- PAGE 14 ----
+Chapter X
+Exercise 06 : btree_level_count
+Exercise 06
+btree_level_count
+Turn-in directory: ex06/
+Files to turn in:btree_level_count.c, ft_btree.h
+Allowed functions: None
+• Create a functionbtree_level_count which returns the size of the largest branch
+passed as an argument.
+• Here’s how it should be prototyped :
+int btree_level_count(t_btree *root);
+13
+
+---- PAGE 15 ----
+Chapter XI
+Exercise 07 : btree_apply_by_level
+Exercise 07
+btree_apply_by_level
+Turn-in directory: ex07/
+Files to turn in:btree_apply_by_level.c, ft_btree.h
+Allowed functions: malloc, free
+• Create a functionbtree_apply_by_level which applies the function passed as an
+argument to each node of the tree. The tree must be browsed level by level. The
+function called will take three arguments :
+◦ The first argument, of typevoid * , corresponds to the node’s item ;
+◦ The second argument, of typeint, corresponds to the level at which we find
+it: 0 for the root, 1 for children, 2 for grand-children, etc. ;
+◦ The third argument, of typeint, is worth 1 if it is the firstnode of the level,
+or 0 otherwise.
+• Here’s how it should be prototyped :
+void btree_apply_by_level(t_btree *root, void (*applyf)(void *item, int current_level, int is_first_elem));
+14
+
+---- PAGE 16 ----
+Chapter XII
+Submission and peer-evaluation
+Submit your assignment to your Git repository as usual. Only the work inside your
+repository will be evaluated during the defense. Make sure to double-check the filenames
+to ensure they are correct.
+You must submit only the files specified in the project instructions.
+15

@@ -1,0 +1,7 @@
+# Revue indépendante de la v0.23-dev
+
+Calculer le SHA-256 de l'archive réellement ouverte ; comparer avec celui transmis. Ne pas exécuter de test de charge, d'OOM ni de code non fiable. Ne pas installer, modifier le système ou supprimer des fichiers utilisateur sans autorisation.
+
+La revue précédente de la v0.22 donnait la bonne empreinte mais contenait des descriptions manifestement différentes de l'archive. Pour chaque constat, donner le chemin, les numéros de lignes et une courte citation exacte du code observé. Si l'extrait n'existe pas, ne pas le présenter comme présent ; signaler tout doute sur l'arbre étudié. Distinguer les essais réellement effectués, les simulations, les hypothèses et les limites connues. Ne pas affirmer qu'un test a été exécuté s'il ne l'a pas été.
+
+Vérifier les interruptions pendant l'évaluation, l'historique, l'affichage et les autres commandes ; l'imbrication des gestionnaires de signaux et leur restauration ; la préservation des messages de nettoyage du processus et du fichier et leur propagation via checker/Git ; les scénarios locaux et GitHub de chaînes non UTF-8 ; la compatibilité avec le parcours GitHub borné et les neuf exercices ; la désactivation du témoin OOM. Examiner les fenêtres résiduelles, les données utilisateur, la possibilité de sorties JSON partielles et les courses de même UID. La sécurité globale et l'application des limites en charge ne sont pas établies.

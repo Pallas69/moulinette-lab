@@ -1,0 +1,329 @@
+
+---- PAGE 8 ----
+C Piscine C 12
+● Learner rules:
+• You should apply reasoning to your assigned tasks, especially before turning to AI.
+• You should not ask for direct answers to the AI.
+• You should learn about 42 global approach on AI.
+● Phase outcomes:
+Within this foundational phase, you will get the following outcomes:
+• Get proper tech and coding foundations.
+• Know why and how AI can be dangerous during this phase.
+● Comments and example:
+• Yes, we know AI exists — and yes, it can solve your projects. But you’re here to
+learn, not to prove that AI has learned. Don’t waste your time (or ours) just to
+demonstrate that AI can solve the given problem.
+• Learning at 42 isn’t about knowing the answer — it’s about developing the ability
+to find one. AI gives you the answer directly, but that prevents you from building
+your own reasoning. And reasoning takes time, effort, and involves failure. The
+path to success is not supposed to be easy.
+• Keep in mind that during exams, AI is not available — no internet, no smartphones,
+etc. You’ll quickly realise if you’ve relied too heavily on AI in your learning process.
+• Peer learning exposes you to different ideas and approaches, improving your inter-
+personal skills and your ability to think divergently. That’s far more valuable than
+just chatting with a bot. So don’t be shy — talk, ask questions, and learn together!
+• Yes, AI will be part of the curriculum — both as a learning tool and as a topic
+in itself. You’ll even have the chance to build your own AI software. In order to
+learn more about our crescendo approach you’ll go through in the documentation
+available on the intranet.
+✓ Good practice:
+I’m stuck on a new concept. I ask someone nearby how they approached it. We talk
+for 10 minutes — and suddenly it clicks. I get it.
+✗ Bad practice:
+I secretly use AI, copy some code that looks right. During peer evaluation, I can’t
+explain anything. I fail. During the exam — no AI — I’m stuck again. I fail.
+7
+
+---- PAGE 9 ----
+Chapter IV
+Exercise 00 : ft_create_elem
+Exercise 00
+ft_create_elem
+Turn-in directory: ex00/
+Files to turn in:ft_create_elem.c, ft_list.h
+Allowed functions: malloc
+• Create the functionft_create_elem, which creates a new element oft_list type.
+• It should assigndata to the given argument andnext to NULL.
+• Here is how it should be prototyped:
+t_list *ft_create_elem( void *data);
+8
+
+---- PAGE 10 ----
+Chapter V
+Exercise 01 : ft_list_push_front
+Exercise 01
+ft_list_push_front
+Turn-in directory: ex01/
+Files to turn in:ft_list_push_front.c, ft_list.h
+Allowed functions: ft_create_elem
+• Createthefunction ft_list_push_front, whichaddsanewelementoftype t_list
+to the beginning of the list.
+• It should assigndata to the given argument.
+• If necessary, it will update the pointer at the beginning of the list.
+• Here is how it should be prototyped:
+void ft_list_push_front(t_list **begin_list, void *data);
+9
+
+---- PAGE 11 ----
+Chapter VI
+Exercise 02 : ft_list_size
+Exercise 02
+ft_list_size
+Turn-in directory: ex02/
+Files to turn in:ft_list_size.c, ft_list.h
+Allowed functions: None
+• Create the function ft_list_size, which returns the number of elements in the
+list.
+• Here is how it should be prototyped:
+int ft_list_size(t_list *begin_list);
+10
+
+---- PAGE 12 ----
+Chapter VII
+Exercise 03 : ft_list_last
+Exercise 03
+ft_list_last
+Turn-in directory: ex03/
+Files to turn in:ft_list_last.c, ft_list.h
+Allowed functions: None
+• Create the functionft_list_last, which returns the last element of the list.
+• Here is how it should be prototyped:
+t_list *ft_list_last(t_list *begin_list);
+11
+
+---- PAGE 13 ----
+Chapter VIII
+Exercise 04 : ft_list_push_back
+Exercise 04
+ft_list_push_back
+Turn-in directory: ex04/
+Files to turn in:ft_list_push_back.c, ft_list.h
+Allowed functions: ft_create_elem
+• Create the functionft_list_push_back, which adds a new element oft_list type
+at the end of the list.
+• It should assigndata to the given argument.
+• If necessary, it will update the pointer at the beginning of the list.
+• Here is how it should be prototyped:
+void ft_list_push_back(t_list **begin_list, void *data);
+12
+
+---- PAGE 14 ----
+Chapter IX
+Exercise 05 : ft_list_push_strs
+Exercise 05
+ft_list_push_strs
+Turn-in directory: ex05/
+Files to turn in:ft_list_push_strs.c, ft_list.h
+Allowed functions: ft_create_elem
+• Create the functionft_list_push_strs, which creates a new list that includes all
+the strings pointed to by the elements instrs.
+• size is the size ofstrs.
+• The first element should be at the end of the list.
+• The first link’s address in the list is returned.
+• Here is how it should be prototyped:
+t_list *ft_list_push_strs( int size, char **strs);
+13
+
+---- PAGE 15 ----
+Chapter X
+Exercise 06 : ft_list_clear
+Exercise 06
+ft_list_clear
+Turn-in directory: ex06/
+Files to turn in:ft_list_clear.c, ft_list.h
+Allowed functions: free
+• Create the functionft_list_clear, which removes and frees all links from the list.
+• free_fct is used to free eachdata.
+• Here is how it should be prototyped:
+void ft_list_clear(t_list *begin_list, void (*free_fct)(void *));
+14
+
+---- PAGE 16 ----
+Chapter XI
+Exercise 07 : ft_list_at
+Exercise 07
+ft_list_at
+Turn-in directory: ex07/
+Files to turn in:ft_list_at.c, ft_list.h
+Allowed functions: None
+• Create the functionft_list_at, which returns the Nth element of the list, knowing
+that the first element of the list is whennbr equals 0.
+• In case of error, it should return a null pointer.
+• Here is how it should be prototyped:
+t_list *ft_list_at(t_list *begin_list, unsigned int nbr);
+15
+
+---- PAGE 17 ----
+Chapter XII
+Exercise 08 : ft_list_reverse
+Exercise 08
+ft_list_reverse
+Turn-in directory: ex08/
+Files to turn in:ft_list_reverse.c
+Allowed functions: None
+• Create the functionft_list_reverse, which reverses the order of a list’s elements.
+The value of each element must remain the same.
+• Beware that in this function, we will use our ownft_list.h.
+• Here is how it should be prototyped:
+void ft_list_reverse(t_list **begin_list);
+16
+
+---- PAGE 18 ----
+Chapter XIII
+Exercise 09 : ft_list_foreach
+Exercise 09
+ft_list_foreach
+Turn-in directory: ex09/
+Files to turn in:ft_list_foreach.c, ft_list.h
+Allowed functions: None
+• Create the function ft_list_foreach, which applies the function given as an ar-
+gument to each of the list’s elements.
+• f should be applied in the same order as the list.
+• Here is how it should be prototyped:
+void ft_list_foreach(t_list *begin_list, void (*f)(void *));
+• The function pointed to byf will be used as follows:
+(*f)(list_ptr->data);
+17
+
+---- PAGE 19 ----
+Chapter XIV
+Exercise 10 : ft_list_foreach_if
+Exercise 10
+ft_list_foreach_if
+Turn-in directory: ex10/
+Files to turn in:ft_list_foreach_if.c, ft_list.h
+Allowed functions: None
+• Create the function ft_list_foreach_if, which applies the function given as an
+argument to some of the list’s elements.
+• Only apply the function to the elements whencmp with data_ref returns 0.
+• f should be applied in the same order as the list.
+• Here is how it should be prototyped:
+void ft_list_foreach_if(t_list *begin_list, void (*f)(void *), void
+*data_ref, int (*cmp)());
+• Functions pointed to byf and by cmp will be used as follows:
+(*f)(list_ptr->data);
+(*cmp)(list_ptr->data, data_ref);
+For example, the function cmp could be ft_strcmp...
+18
+
+---- PAGE 20 ----
+Chapter XV
+Exercise 11 : ft_list_find
+Exercise 11
+ft_list_find
+Turn-in directory: ex11/
+Files to turn in:ft_list_find.c, ft_list.h
+Allowed functions: None
+• Create the functionft_list_find which returns the address of the first element’s
+data where comparing it todata_ref with cmp causes cmp to return 0.
+• Here’s how it should be prototyped:
+t_list *ft_list_find(t_list *begin_list, void *data_ref, int (*cmp)());
+• The function pointed to bycmp will be used as follows:
+(*cmp)(list_ptr->data, data_ref);
+19
+
+---- PAGE 21 ----
+Chapter XVI
+Exercise 12 : ft_list_remove_if
+Exercise 12
+ft_list_remove_if
+Turn-in directory: ex12/
+Files to turn in:ft_list_remove_if.c, ft_list.h
+Allowed functions: free
+• Create the function ft_list_remove_if which removes from the list all elements
+whose data, when compared todata_ref using cmp, causes cmp to return 0.
+• The data from an element to be erased should be freed usingfree_fct.
+• Here’s how it should be prototyped:
+void ft_list_remove_if(t_list **begin_list, void *data_ref, int (*cmp)(), void (*free_fct)(void *));
+• The functions pointed to bycmp and free_fct will be used as follows:
+(*cmp)(list_ptr->data, data_ref);
+(*free_fct)(list_ptr->data);
+20
+
+---- PAGE 22 ----
+Chapter XVII
+Exercise 13 : ft_list_merge
+Exercise 13
+ft_list_merge
+Turn-in directory: ex13/
+Files to turn in:ft_list_merge.c, ft_list.h
+Allowed functions: None
+• Create the function ft_list_merge which places elements of a listbegin2 at the
+end of another listbegin1.
+• Element creation is not authorised.
+• Here’s how it should be prototyped:
+void ft_list_merge(t_list **begin_list1, t_list *begin_list2);
+21
+
+---- PAGE 23 ----
+Chapter XVIII
+Exercise 14 : ft_list_sort
+Exercise 14
+ft_list_sort
+Turn-in directory: ex14/
+Files to turn in:ft_list_sort.c, ft_list.h
+Allowed functions: None
+• Create the functionft_list_sort which sorts the list’s elements in ascending order
+by comparing two elements and their data using a comparison function.
+• Here’s how it should be prototyped:
+void ft_list_sort(t_list **begin_list, int (*cmp)());
+• The function pointed to bycmp will be used as follows:
+(*cmp)(list_ptr->data, list_other_ptr->data);
+cmp could be for instance ft_strcmp.
+22
+
+---- PAGE 24 ----
+Chapter XIX
+Exercise 15 : ft_list_reverse_fun
+Exercise 15
+ft_list_reverse_fun
+Turn-in directory: ex15/
+Files to turn in:ft_list_reverse_fun.c, ft_list.h
+Allowed functions: None
+• Create the functionft_list_reverse_fun which reverses the order of the elements
+in the list.
+• Here’s how it should be prototyped:
+void ft_list_reverse_fun(t_list *begin_list);
+23
+
+---- PAGE 25 ----
+Chapter XX
+Exercise 16 : ft_sorted_list_insert
+Exercise 16
+ft_sorted_list_insert
+Turn-in directory: ex16/
+Files to turn in:ft_sorted_list_insert.c, ft_list.h
+Allowed functions: ft_create_elem
+• Create the function ft_sorted_list_insert which creates a new element and
+inserts it into a list sorted so that it remains sorted in ascending order.
+• Here’s how it should be prototyped:
+void ft_sorted_list_insert(t_list **begin_list, void *data, int (*cmp)());
+• Function pointed bycmp will be used as follows:
+(*cmp)(list_ptr->data, list_other_ptr->data);
+24
+
+---- PAGE 26 ----
+Chapter XXI
+Exercise 17 : ft_sorted_list_merge
+Exercise 17
+ft_sorted_list_merge
+Turn-in directory: ex17/
+Files to turn in:ft_sorted_list_merge.c, ft_list.h
+Allowed functions: None
+• Create the function ft_sorted_list_merge which integrates the elements of a
+sorted list begin2 in another sorted listbegin1, so thatbegin1 remains sorted by
+ascending order.
+• Here’s how it should be prototyped:
+void ft_sorted_list_merge(t_list **begin_list1, t_list *begin_list2, int (*cmp)());
+• Function pointed bycmp will be used as follows:
+(*cmp)(list_ptr->data, list_other_ptr->data);
+25
+
+---- PAGE 27 ----
+Chapter XXII
+Submission and peer-evaluation
+Submit your assignment to your Git repository as usual. Only the work inside your
+repository will be evaluated during the defense. Make sure to double-check the filenames
+to ensure they are correct.
+You must submit only the files specified in the project instructions.
+26

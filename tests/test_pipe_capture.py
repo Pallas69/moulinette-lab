@@ -158,7 +158,23 @@ class ResourceWitnessTests(unittest.TestCase):
             if status.exists():
                 # Un zombie ne s'exécute plus ; le noyau le récolte séparément.
                 self.assertEqual(status.read_text().split(') ',1)[1][0],'Z')
-        except FileNotFoundError:
+        except (FileNotFoundError, ProcessLookupError):
+            # Le processus peut disparaître pendant la lecture.
             pass
+
+    def test_proc_disappears_during_read_without_false_failure(self):
+        from unittest.mock import patch
+        with patch('test_pipe_capture._run', return_value=(0, b'12345\n', b'', False)), \
+             patch.object(Path, 'exists', return_value=True), \
+             patch.object(Path, 'read_text', side_effect=ProcessLookupError('processus disparu')):
+            self.test_descendant_in_same_group_is_terminated_after_parent_exits()
+
+    def test_proc_still_running_is_not_accepted_as_stopped(self):
+        from unittest.mock import patch
+        with patch('test_pipe_capture._run', return_value=(0, b'12345\n', b'', False)), \
+             patch.object(Path, 'exists', return_value=True), \
+             patch.object(Path, 'read_text', return_value='12345 (fixture) S 1 1'):
+            with self.assertRaises(AssertionError):
+                self.test_descendant_in_same_group_is_terminated_after_parent_exits()
 
 if __name__=='__main__': unittest.main()

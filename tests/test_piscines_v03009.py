@@ -205,7 +205,7 @@ class PiscinesV03009Tests(unittest.TestCase):
             self.assertEqual(bad_while["result"], "failed")
             self.assertIn("while", bad_while["checks"][1]["message"])
 
-        # 3. py03/ex00 NumPyCreator (numpy est installé sur cette machine)
+        # 3. py03/ex00 NumPyCreator : vérifier aussi l'absence de NumPy.
         with tempfile.TemporaryDirectory() as d:
             p = Path(d)
             (p / "NumPyCreator.py").write_text(
@@ -229,8 +229,24 @@ class PiscinesV03009Tests(unittest.TestCase):
                 "        return np.identity(n, dtype=dtype)\n",
                 encoding="utf-8",
             )
+            with patch('moulinette.py_engine._run_py', return_value=(1, b'', b'', False)):
+                rep_np_missing = check_exercise(p, "py03/ex00", sandbox=False)
+            self.assertEqual(rep_np_missing["result"], "incomplete", rep_np_missing)
+            self.assertTrue(any(c["status"] == "unavailable" and "numpy" in c["message"]
+                                for c in rep_np_missing["checks"]))
+
+            from moulinette.py_engine import _run_py
+            py_bin = shutil.which('python3')
+            self.assertIsNotNone(py_bin, 'python3 requis pour ce test')
+            probe, _, _, timed = _run_py([py_bin, '-B', '-c', 'import numpy'], p, 5,
+                                         extra_pythonpath=os.environ.get('MOULINETTE_PY_EXTRA_PATH') or None)
             rep_np = check_exercise(p, "py03/ex00", sandbox=False)
-            self.assertEqual(rep_np["result"], "passed", rep_np)
+            if probe == 0 and not timed:
+                self.assertEqual(rep_np["result"], "passed", rep_np)
+            else:
+                self.assertEqual(rep_np["result"], "incomplete", rep_np)
+                self.assertTrue(any(c["status"] == "unavailable" and "numpy" in c["message"]
+                                    for c in rep_np["checks"]))
 
         # 4. py04/ex00 FileLoader : si pandas est absent -> 'incomplete' (status 'unavailable'), jamais 'passed'
         with tempfile.TemporaryDirectory() as d:
